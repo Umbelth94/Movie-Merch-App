@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Movie-Merch-Machine</title>
-        <!-- Compressed Foundation CSS -->
-        <link
-            href="
-    https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css
-    "
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie-Merch-Machine</title>
+    <!-- Compressed Foundation CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
             rel="stylesheet"
         />
         <link rel="stylesheet" href="./assets/css/style.css" />
-    </head>
-    <body>
-        <h3 id="movieTitle"></h3>
+  </head>
+<body>
+  <h3 id="movieTitle"></h3>
         <img src="" id="movie-poster">
         <div id="synopsis"></div>
         <div class="input-group input-group-rounded">
@@ -22,19 +19,35 @@
             <div class="input-group-button">
                 <input type="submit" id="button-search" class="button secondary" value="Search" />
             </div>
+    " rel="stylesheet">    
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <div class="input-group input-group-rounded">
+        <input id="search-bar" class="input-group-field" type="search" />
+        <div class="input-group-button">
+            <input type="submit" id="button-search" class="button secondary" value="Search" />
         </div>
-
-        <script
-            src="https://code.jquery.com/jquery-3.7.1.min.js"
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-            crossorigin="anonymous"
-        ></script>
-        <script src="
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="
     https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/js/foundation.min.js
     "></script>
-        <script>
-            $(document).foundation();
-        </script>
-        <script src="./assets/js/script.js"></script>
-    </body>
+    <script>$(document).foundation();</script>
+    <script src="./assets/js/script.js"></script>
+    <!-- Navbar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="topnav" id="myTopnav">
+  <a href="#home" class="active">Home</a>
+  <a href="#link 2">Link 2</a>
+  <a href="#link 3">Link 3</a>
+  <a href="#link 4">Link 4</a>
+  <a href="#link 5">Link 5</a>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+
+</body>
+
 </html>
