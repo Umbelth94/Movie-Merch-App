@@ -15,6 +15,8 @@ var moviePoster = $("#movie-poster");
 const API_KEY = "70f6eb9853632fc7fc6755fa5349de0a";
 var searchBar = $("#search-bar");
 var searchButton = $("#button-search");
+var synopsisInfo = $("#synopsis");
+var movieTitleHeader = $("#movieTitle");
 searchButton.on("click", function () {
     inputGetter();
 }); //todo: build click function
@@ -34,17 +36,7 @@ function inputGetter() {
             return response.json();
         })
         .then((data) => {
-            console.log(data);
-            var movieTitle = data.results[0].title;
-            console.log(data.results[0].title);
-            $("#movieTitle").text(movieTitle);
-            var posterImage = data.results[0].poster_path;
-            moviePoster.attr(
-                "src",
-                "https://image.tmdb.org/t/p/original/" +
-                    data.results[0].poster_path
-            );
-            console.log(data.results[0].overview);
+            postMovieData(data);
         })
         .catch((error) => {
             console.log("error");
@@ -57,6 +49,22 @@ function inputGetter() {
     // then a fetch request is made to retrieve the movie poster and information about the movie
     // then that information is appended to the screen
     //
+}
+
+function postMovieData(data){
+    //Need release date and vote average still
+    console.log(data);
+    var movieTitle = data.results[0].title;
+    console.log(data.results[0].title);
+    movieTitleHeader.text(movieTitle);
+    var posterImage = data.results[0].poster_path;
+    moviePoster.attr(
+        "src",
+        "https://image.tmdb.org/t/p/original/" +
+            data.results[0].poster_path
+    );
+    var synopsisData = data.results[0].overview
+    synopsisInfo.text(synopsisData);
 }
 
 

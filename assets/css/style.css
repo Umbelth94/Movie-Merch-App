@@ -20,6 +20,11 @@
     width: 150px;
 }
 
+#movie-card{
+    margin-left:auto;
+    margin-right:auto;
+    background-color:var(--cinereous);
+}
 /* Add a black background color to the top navigation */
 .topnav {
     background-color: #8d918b;
