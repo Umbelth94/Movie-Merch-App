@@ -15,6 +15,18 @@
 //Displays locally saved movies
 
 
+var searchBar = $("#search-bar")
+var searchButton = $("#button-search")
+searchButton.on("click", function() {}) //todo: build click function
+
+function inputGetter() {
+    // 
+    // when input is in field
+    // movie title is extracted
+    // then movie title is added to search query url
+    // 
+}
+
 const API_KEY = "70f6eb9853632fc7fc6755fa5349de0a";
 
 fetch(
@@ -31,5 +43,7 @@ fetch(
         console.log("error");
 
     });
+
+
 
 
