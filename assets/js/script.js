@@ -11,6 +11,7 @@
 //Saves movies locally
 
 //Displays locally saved movies
+var moviePoster = $("#movie-poster");
 const API_KEY = "70f6eb9853632fc7fc6755fa5349de0a";
 var searchBar = $("#search-bar");
 var searchButton = $("#button-search");
@@ -22,7 +23,12 @@ function inputGetter() {
     var movieTitleInput = searchBar.val();
     console.log(movieTitleInput);
     searchBar.val("");
-    fetch("https://api.themoviedb.org/3/search/movie?query=" + movieTitleInput + "&api_key=" + API_KEY)
+    fetch(
+        "https://api.themoviedb.org/3/search/movie?query=" +
+            movieTitleInput +
+            "&api_key=" +
+            API_KEY
+    )
         .then((response) => {
             console.log(response);
             return response.json();
@@ -30,8 +36,15 @@ function inputGetter() {
         .then((data) => {
             console.log(data);
             var movieTitle = data.results[0].title;
-            console.log(data.results[0].title)
-            $("#movieTitle").text(movieTitle)
+            console.log(data.results[0].title);
+            $("#movieTitle").text(movieTitle);
+            var posterImage = data.results[0].poster_path;
+            moviePoster.attr(
+                "src",
+                "https://image.tmdb.org/t/p/original/" +
+                    data.results[0].poster_path
+            );
+            console.log(data.results[0].overview);
         })
         .catch((error) => {
             console.log("error");
@@ -46,7 +59,4 @@ function inputGetter() {
     //
 }
 
-
-
 // https://api.themoviedb.org/3/search/movie?query=Jack+Reacher
-
