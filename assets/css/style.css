@@ -1,0 +1,17 @@
+:root {
+    --bright-pink: #e85d75;
+    --blush: #c76d7e;
+    --cinereous: #9f8082;
+    --battleship-grey: #8d918b;
+    --rose-quartz: #ad9b9a;
+}
+
+.input-group-rounded .input-group-field {
+    border-radius: 5000px 0 0 5000px;
+    padding-left: 1rem;
+}
+
+.input-group-rounded .input-group-button .button {
+    border-radius: 0 5000px 5000px 0;
+    font-size: 0.8rem;
+}
