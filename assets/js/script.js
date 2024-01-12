@@ -98,26 +98,40 @@ function handleMovieData(movieTitleInput) {
         });
 }
 
-function displayMovieData(data) {
-    //Need release date and vote average still
-    console.log(data);
-    var movieTitle = data.results[0].title;
-    console.log(data.results[0].title);
-    movieTitleHeader.text(movieTitle);
-    var posterImage = data.results[0].poster_path;
+// function displayMovieData(data) {
+//     //Need release date and vote average still
+//     console.log(data);
+//     var movieTitle = data.results[0].title;
+//     console.log(data.results[0].title);
+//     movieTitleHeader.text(movieTitle);
+//     var posterImage = data.results[0].poster_path;
+//     moviePoster.attr(
+//         "src",
+//         "https://image.tmdb.org/t/p/original/" + data.results[0].poster_path
+//     );
+//     var synopsisData = data.results[0].overview;
+//     synopsisInfo.text(synopsisData);
+// }
+
+function displayMovieData(movieData){
+    var movieTitle = movieData.title;
+    var releaseDate = movieData.releaseDate;
+    var movieSynopsis = movieData.synopsis;
+    var posterImage = movieData.posterImage;
+    movieTitleHeader.text(movieTitle + releaseDate);
     moviePoster.attr(
         "src",
-        "https://image.tmdb.org/t/p/original/" + data.results[0].poster_path
+        "https://image.tmdb.org/t/p/original/" + posterImage
     );
-    var synopsisData = data.results[0].overview;
-    synopsisInfo.text(synopsisData);
+    synopsisInfo.text(movieSynopsis);
 }
 
 
-function displayMultipleMovies(data){
+function displayMultipleMovies(data) {
     console.log(data.results.length);
-    for (let i = 0; i < data.results.length; i ++){
-        console.log('loop ' + i)
+
+    for (let i = 0; i < data.results.length; i++) {
+        console.log('loop ' + i);
         console.log(data.results[i].title);
         var movieTitle = data.results[i].title;
         var releaseDate = data.results[i].release_date;
@@ -126,24 +140,33 @@ function displayMultipleMovies(data){
         console.log(movieSynopsis);
         var posterImage = data.results[i].poster_path;
         console.log(posterImage);
-       
+
         var card = $('<div class="card"></div>');
-        var posterimg = $('<img>')
+        var posterimg = $('<img>');
         posterimg.attr({
-            src:"https://image.tmdb.org/t/p/original/" + posterImage,
-            style:"width: 200px",
-            class:'small-card-image',
-        })
-        card.addClass('small-card')
+            src: "https://image.tmdb.org/t/p/original/" + posterImage,
+            style: "width: 200px",
+            class: 'small-card-image',
+        });
+        card.addClass('small-card');
         card.append('<h2>' + movieTitle + '</h2>');
         card.append('<h3>' + releaseDate + '</h3>');
         card.append(posterimg);
         card.append('<p>' + movieSynopsis + '</p>');
-        card.on('click',function(){
-            console.log('clicked');
-            //This is a problem with getting the correct data here
-            displayMovieData(data);
-        })
+
+        // Use a closure to capture the current movie details
+        (function (title, date, synopsis, image) {
+            card.on('click', function () {
+                console.log('clicked');
+                // Pass the specific movie data to displayMovieData
+                displayMovieData({
+                    title: title,
+                    releaseDate: date,
+                    synopsis: synopsis,
+                    posterImage: image
+                });
+            });
+        })(movieTitle, releaseDate, movieSynopsis, posterImage);
 
         $('#movie-card-container').append(card);
     }
