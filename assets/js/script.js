@@ -17,32 +17,44 @@ var searchBar = $("#search-bar");
 var searchButton = $("#button-search");
 var synopsisInfo = $("#synopsis");
 var movieTitleHeader = $("#movieTitle");
+var savedMoviesContainer = $('#saved-movies-container');
 
 //Creates a variable that immediately pulls any data saved under the 'savedMovies' key, OR creates an empty array if such a key does not exist.
 var savedMovieData = JSON.parse(localStorage.getItem('savedMovies')) || [];
 
 searchButton.on("click", function () {
-    inputGetter();
+    saveMovie();
 });
 
-// for loop that loads local storage
-// ===============================
-for (var i = 0; i < localStorage.length; i++) {
-    console.log(localStorage.key(i));
+//Function that displays locally stored movies as their own buttons that contain listeners to the handleMovieData function
+function displaySavedMovies(){
+    savedMoviesContainer.innerHTML = '';
+    for (let i = 0; i < savedMovieData.length; i++){
+        var savedMovieButton = document.createElement('button');
+        savedMovieButton.addEventListener('click', function(){
+            handleMovieData(savedMovieData[i]);
+        });
+        savedMovieButton.textContent=savedMovieData[i];
+        // savedMovieButton.setAttribute('class', 'btn btn-secondary mt-2');
+        savedMoviesContainer.append(savedMovieButton);
+        console.log(savedMovieData[i]);
+    }
 }
 
+
 // function that saves movies locally
-function saveMovie(movieTitleInput) {
+function saveMovie() {
+    var movieTitleInput = searchBar.val().toLowerCase();
     console.log(movieTitleInput);
     savedMovieData.push(movieTitleInput); //Adds the current movieTitleInput to the savedMovieData Array
     localStorage.setItem('savedMovies', JSON.stringify(savedMovieData)); //Sets the new updated Data to the savedMovies key.
     console.log(localStorage.getItem('savedMovies'));
+    displaySavedMovies();
+    handleMovieData(movieTitleInput); //Initiate the handleMovieData function to interact w/ the 
+    searchBar.val("");
 }
 
-function inputGetter() {
-    var movieTitleInput = searchBar.val().toLowerCase();
-    saveMovie(movieTitleInput);
-    searchBar.val("");
+function handleMovieData(movieTitleInput) { //Is called via the saveMovie function so that they could share a parameter
     fetch(
         "https://api.themoviedb.org/3/search/movie?query=" +
             movieTitleInput +
