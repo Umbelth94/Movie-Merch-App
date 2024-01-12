@@ -23,56 +23,77 @@ var savedMoviesContainer = $('#saved-movies-container');
 var savedMovieData = JSON.parse(localStorage.getItem('savedMovies')) || [];
 
 searchButton.on("click", function () {
-    saveMovie();
+    var movieTitleInput = searchBar.val().toLowerCase();
+    console.log(movieTitleInput);
+    searchBar.val("");
+    if (movieTitleInput != ''){
+    handleMovieData(movieTitleInput);
+    } else {
+        alert('Must type in a movie');
+    }
 });
 
 //Function that displays locally stored movies as their own buttons that contain listeners to the handleMovieData function
-function displaySavedMovies(){
-    savedMoviesContainer.innerHTML = '';
-    for (let i = 0; i < savedMovieData.length; i++){
-        var savedMovieButton = document.createElement('button');
-        savedMovieButton.addEventListener('click', function(){
-            handleMovieData(savedMovieData[i]);
+function displaySavedMovies() {
+    savedMoviesContainer.empty();
+
+    $.each(savedMovieData, function (index, value) {
+        //Create a button for each value in the savedMovieData Array
+        var savedMovieButton = $('<button>', {
+            text: value,
+            class: 'button secondary expanded'
         });
-        savedMovieButton.textContent=savedMovieData[i];
-        savedMovieButton.setAttribute('class', 'button secondary expanded');
+        //Give each of those buttons an event listener with the handleMovieData function
+        savedMovieButton.on('click', function () {
+            handleMovieData(value);
+        });
+        //Append the buttons to the container
         savedMoviesContainer.append(savedMovieButton);
-        console.log(savedMovieData[i]);
-    }
+        console.log(value);
+    });
 }
 
 
 // function that saves movies locally
-function saveMovie() {
-    var movieTitleInput = searchBar.val().toLowerCase();
+function saveMovie(movieTitleInput) {
+    // var movieTitleInput = searchBar.val().toLowerCase();
     console.log(movieTitleInput);
     savedMovieData.push(movieTitleInput); //Adds the current movieTitleInput to the savedMovieData Array
     localStorage.setItem('savedMovies', JSON.stringify(savedMovieData)); //Sets the new updated Data to the savedMovies key.
     console.log(localStorage.getItem('savedMovies'));
     displaySavedMovies();
-    handleMovieData(movieTitleInput); //Initiate the handleMovieData function to interact w/ the 
     searchBar.val("");
 }
 
-function handleMovieData(movieTitleInput) { //Is called via the saveMovie function so that they could share a parameter
+function handleMovieData(movieTitleInput) {
     fetch(
         "https://api.themoviedb.org/3/search/movie?query=" +
-            movieTitleInput +
-            "&api_key=" +
-            API_KEY
+        movieTitleInput +
+        "&api_key=" +
+        API_KEY
     )
         .then((response) => {
             console.log(response);
             return response.json();
         })
         .then((data) => {
-            postMovieData(data);
+            console.log('data results length' + data.results.length);
+            if (data.results.length === 0) {
+                alert('That ain\'t a movie, bub');
+                return;
+            } else {
+                postMovieData(data);
+                
+                // Save the movie only if it's not already in the list
+                if (!savedMovieData.includes(movieTitleInput)) {
+                    saveMovie(movieTitleInput);
+                    displaySavedMovies();
+                }
+            }
         })
         .catch((error) => {
             console.log("error");
         });
-
-    return;
 }
 
 function postMovieData(data) {
