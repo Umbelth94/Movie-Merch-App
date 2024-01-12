@@ -35,7 +35,7 @@ function displaySavedMovies(){
             handleMovieData(savedMovieData[i]);
         });
         savedMovieButton.textContent=savedMovieData[i];
-        // savedMovieButton.setAttribute('class', 'btn btn-secondary mt-2');
+        savedMovieButton.setAttribute('class', 'button secondary expanded');
         savedMoviesContainer.append(savedMovieButton);
         console.log(savedMovieData[i]);
     }
@@ -99,3 +99,5 @@ function myFunction() {
         x.className = "topnav";
     }
 }
+
+displaySavedMovies();
