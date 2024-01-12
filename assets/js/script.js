@@ -17,12 +17,31 @@ var searchBar = $("#search-bar");
 var searchButton = $("#button-search");
 var synopsisInfo = $("#synopsis");
 var movieTitleHeader = $("#movieTitle");
+
 searchButton.on("click", function () {
     inputGetter();
-}); //todo: build click function
+});
+
+// for loop that loads local storage
+// ===============================
+for (var i = 0; i < localStorage.length; i++) {
+    console.log(localStorage.key(i));
+}
+
+// function that saves movies locally
+// ===============================
+function saveMovie() {
+    var movieKey = searchBar.val();
+    var movieValue = searchBar.val();
+    localStorage.setItem(movieKey, movieValue);
+    console.log(localStorage.getItem(movieKey));
+}
+
+// ===============================
 
 function inputGetter() {
     var movieTitleInput = searchBar.val();
+    saveMovie();
     console.log(movieTitleInput);
     searchBar.val("");
     fetch(
@@ -51,7 +70,7 @@ function inputGetter() {
     //
 }
 
-function postMovieData(data){
+function postMovieData(data) {
     //Need release date and vote average still
     console.log(data);
     var movieTitle = data.results[0].title;
@@ -60,20 +79,18 @@ function postMovieData(data){
     var posterImage = data.results[0].poster_path;
     moviePoster.attr(
         "src",
-        "https://image.tmdb.org/t/p/original/" +
-            data.results[0].poster_path
+        "https://image.tmdb.org/t/p/original/" + data.results[0].poster_path
     );
-    var synopsisData = data.results[0].overview
+    var synopsisData = data.results[0].overview;
     synopsisInfo.text(synopsisData);
 }
-
 
 /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
 function myFunction() {
     var x = document.getElementById("myTopnav");
     if (x.className === "topnav") {
-      x.className += " responsive";
+        x.className += " responsive";
     } else {
-      x.className = "topnav";
+        x.className = "topnav";
     }
-  }
+}
