@@ -1,6 +1,6 @@
 //Fetch TMDB API
 //Display basic info
-//Display advanced info on button press
+//We need a way to be able to sort through multiple movies with the same name.
 
 //Fetch Ebay API
 //Selectors help refine search data
@@ -66,6 +66,7 @@ function saveMovie(movieTitleInput) {
 }
 
 function handleMovieData(movieTitleInput) {
+    $('#movie-card-container').empty();
     fetch(
         "https://api.themoviedb.org/3/search/movie?query=" +
         movieTitleInput +
@@ -77,13 +78,14 @@ function handleMovieData(movieTitleInput) {
             return response.json();
         })
         .then((data) => {
+            console.log(data);
             console.log('data results length' + data.results.length);
             if (data.results.length === 0) {
                 alert('That ain\'t a movie, bub');
                 return;
             } else {
-                postMovieData(data);
-                
+                // displayMovieData(data);
+                displayMultipleMovies(data);
                 // Save the movie only if it's not already in the list
                 if (!savedMovieData.includes(movieTitleInput)) {
                     saveMovie(movieTitleInput);
@@ -96,7 +98,7 @@ function handleMovieData(movieTitleInput) {
         });
 }
 
-function postMovieData(data) {
+function displayMovieData(data) {
     //Need release date and vote average still
     console.log(data);
     var movieTitle = data.results[0].title;
@@ -109,6 +111,42 @@ function postMovieData(data) {
     );
     var synopsisData = data.results[0].overview;
     synopsisInfo.text(synopsisData);
+}
+
+
+function displayMultipleMovies(data){
+    console.log(data.results.length);
+    for (let i = 0; i < data.results.length; i ++){
+        console.log('loop ' + i)
+        console.log(data.results[i].title);
+        var movieTitle = data.results[i].title;
+        var releaseDate = data.results[i].release_date;
+        console.log(movieTitle);
+        var movieSynopsis = data.results[i].overview;
+        console.log(movieSynopsis);
+        var posterImage = data.results[i].poster_path;
+        console.log(posterImage);
+       
+        var card = $('<div class="card"></div>');
+        var posterimg = $('<img>')
+        posterimg.attr({
+            src:"https://image.tmdb.org/t/p/original/" + posterImage,
+            style:"width: 200px",
+            class:'small-card-image',
+        })
+        card.addClass('small-card')
+        card.append('<h2>' + movieTitle + '</h2>');
+        card.append('<h3>' + releaseDate + '</h3>');
+        card.append(posterimg);
+        card.append('<p>' + movieSynopsis + '</p>');
+        card.on('click',function(){
+            console.log('clicked');
+            //This is a problem with getting the correct data here
+            displayMovieData(data);
+        })
+
+        $('#movie-card-container').append(card);
+    }
 }
 
 /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
