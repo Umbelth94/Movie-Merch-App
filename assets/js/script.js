@@ -18,6 +18,9 @@ var searchButton = $("#button-search");
 var synopsisInfo = $("#synopsis");
 var movieTitleHeader = $("#movieTitle");
 
+//Creates a variable that immediately pulls any data saved under the 'savedMovies' key, OR creates an empty array if such a key does not exist.
+var savedMovieData = JSON.parse(localStorage.getItem('savedMovies')) || [];
+
 searchButton.on("click", function () {
     inputGetter();
 });
@@ -29,20 +32,16 @@ for (var i = 0; i < localStorage.length; i++) {
 }
 
 // function that saves movies locally
-// ===============================
-function saveMovie() {
-    var movieKey = searchBar.val();
-    var movieValue = searchBar.val();
-    localStorage.setItem(movieKey, movieValue);
-    console.log(localStorage.getItem(movieKey));
+function saveMovie(movieTitleInput) {
+    console.log(movieTitleInput);
+    savedMovieData.push(movieTitleInput); //Adds the current movieTitleInput to the savedMovieData Array
+    localStorage.setItem('savedMovies', JSON.stringify(savedMovieData)); //Sets the new updated Data to the savedMovies key.
+    console.log(localStorage.getItem('savedMovies'));
 }
 
-// ===============================
-
 function inputGetter() {
-    var movieTitleInput = searchBar.val();
-    saveMovie();
-    console.log(movieTitleInput);
+    var movieTitleInput = searchBar.val().toLowerCase();
+    saveMovie(movieTitleInput);
     searchBar.val("");
     fetch(
         "https://api.themoviedb.org/3/search/movie?query=" +
@@ -62,12 +61,6 @@ function inputGetter() {
         });
 
     return;
-    // when input is in field
-    // movie title is extracted
-    // then movie title is added to search query url
-    // then a fetch request is made to retrieve the movie poster and information about the movie
-    // then that information is appended to the screen
-    //
 }
 
 function postMovieData(data) {
