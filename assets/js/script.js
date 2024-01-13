@@ -1,14 +1,15 @@
-//Fetch TMDB API
-//Display basic info
-//We need a way to be able to sort through multiple movies with the same name.
+//TODO:
+    //Clear movies when one is selected
+    //Save the favorited movies ONLY once one is selected
+    //When the favorited movies are picked from menu, only populate card and merch info for that movie (maybe by saving the movie id somewhere)
+
+
 
 //Fetch Ebay API
 //Selectors help refine search data
 //Display merch from results for movie input
 
-//Recieve Input Data from search bar
 
-//Saves movies locally
 
 //Displays locally saved movies
 var moviePoster = $("#movie-poster");
@@ -66,7 +67,6 @@ function saveMovie(movieTitleInput) {
 }
 
 function handleMovieData(movieTitleInput) {
-    $('#movie-card-container').empty();
     fetch(
         "https://api.themoviedb.org/3/search/movie?query=" +
         movieTitleInput +
@@ -98,20 +98,6 @@ function handleMovieData(movieTitleInput) {
         });
 }
 
-// function displayMovieData(data) {
-//     //Need release date and vote average still
-//     console.log(data);
-//     var movieTitle = data.results[0].title;
-//     console.log(data.results[0].title);
-//     movieTitleHeader.text(movieTitle);
-//     var posterImage = data.results[0].poster_path;
-//     moviePoster.attr(
-//         "src",
-//         "https://image.tmdb.org/t/p/original/" + data.results[0].poster_path
-//     );
-//     var synopsisData = data.results[0].overview;
-//     synopsisInfo.text(synopsisData);
-// }
 
 function displayMovieData(movieData){
     var movieTitle = movieData.title;
@@ -140,6 +126,8 @@ function displayMultipleMovies(data) {
         console.log(movieSynopsis);
         var posterImage = data.results[i].poster_path;
         console.log(posterImage);
+        var movieId = data.results[i].id;
+        console.log(movieId);
 
         var card = $('<div class="card"></div>');
         var posterimg = $('<img>');
@@ -155,7 +143,7 @@ function displayMultipleMovies(data) {
         card.append('<p>' + movieSynopsis + '</p>');
 
         // Use a closure to capture the current movie details
-        (function (title, date, synopsis, image) {
+        (function (title, date, synopsis, image, id) {
             card.on('click', function () {
                 console.log('clicked');
                 // Pass the specific movie data to displayMovieData
@@ -163,10 +151,12 @@ function displayMultipleMovies(data) {
                     title: title,
                     releaseDate: date,
                     synopsis: synopsis,
-                    posterImage: image
+                    posterImage: image,
+                    movieId: id
                 });
+            $('#movie-card-container').empty();
             });
-        })(movieTitle, releaseDate, movieSynopsis, posterImage);
+        })(movieTitle, releaseDate, movieSynopsis, posterImage, movieId); //Immediately Invoked Function Expression (IIFE) to have the data stored for each event listener
 
         $('#movie-card-container').append(card);
     }
