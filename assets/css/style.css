@@ -25,6 +25,11 @@
     margin-right:auto;
     background-color:var(--cinereous);
 }
+
+.small-card{
+  max-width:15rem;
+  margin:2rem;
+}
 /* Add a black background color to the top navigation */
 .topnav {
     background-color: #8d918b;

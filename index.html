@@ -20,10 +20,16 @@
     <a href="#link 4">Link 4</a>
     <a href="#link 5">Link 5</a>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-    <i class="fa fa-bars"></i>
+        <i class="fa fa-bars"></i>
     </a>
 </div>
 <body>
+    <ul class="dropdown menu" data-dropdown-menu>
+        <li>
+            <a href="#">Saved Movies</a>
+            <ul id="saved-movies-container" class="menu"></ul>
+        </li>
+    </ul>
     <!-- Search Bar -->
     <div class="input-group input-group-rounded">
         <input id="search-bar" class="input-group-field" type="search" />
@@ -31,9 +37,8 @@
             <input type="submit" id="button-search" class="button secondary" value="Search" />
         </div>
     </div>
-
     <!-- Movie Card -->
-    <div id="movie-card" class="card" style="width: 300px;">
+    <div id="movie-card" class="card" style="width: 500px;">
         <div class="card-divider">
             <h3 id="movieTitle"></h3>
         </div>
@@ -43,12 +48,13 @@
         </div>
       </div>
 
-    <ul class="dropdown menu" data-dropdown-menu>
-        <li>
-            <a href="#">Saved Movies</a>
-            <ul id="saved-movies-container" class="menu"></ul>
-        </li>
-    </ul>
+    <!-- Smaller Movie Cards -->
+    <div class="grid-container">
+        <div id="movie-card-container" class="grid-x">
+        
+        </div>
+    </div>
+
     
     
 
