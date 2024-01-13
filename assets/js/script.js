@@ -9,7 +9,26 @@
 //Selectors help refine search data
 //Display merch from results for movie input
 
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer v^1.1#i^1#f^0#p^1#r^0#I^3#t^H4sIAAAAAAAAAOVYbWgURxjOJZe0qU1tqTRioz22UknT25u93b2P1btyMabGJpfonVFDJe7HbLLJfpw7s0kuPzSmIFKL2BYsqEhsEYTSFgWxQlOFtkipmIL+EPujfrS0tKSg0EYwpZ27i/GSikZz0EDvz7Ez7/vO8z7zfswMGCgrf3nn6p1jFa7HiocGwECxy8XMA+VlpTVPlRQvKi0CeQKuoYGlA+7Bkl9WINHQU8I6iFKWiaCnz9BNJGQHI5Rjm4IlIg0JpmhAJGBZSMSaGgU/DYSUbWFLtnTK01AXoWQoyyqvhAKiEpAgw5FR847NpBWhJBlKQBRVjueCEheWyDxCDmwwERZNHKH8wM95AeNl2CQTFPigwAAasOE2ytMKbaRZJhGhARXNwhWyunYe1vtDFRGCNiZGqGhDrD7RHGuoWxVPrvDl2YpO8JDAInbQ1K+VlgI9raLuwPsvg7LSQsKRZYgQ5YvmVphqVIjdAfMI8LNU8zLgGYYLciwAQZYLFYTKess2RHx/HJkRTfGqWVEBmljD6QcxStiQuqCMJ77ixERDnSfzt9YRdU3VoB2hVtXGNsVaWqho0hZ7NLTe8BpWjwYNaHsTtRu9UPUzIb8aYr0hkZPCLAhOLJSzNkHztJVWWqaiZUhDnriFayFBDadzw+VxQ4SazWY7puIMony58CSHfFtmU3O76OBOM7OvBKWJPdnPB+/ApDbGtiY5GE5amD6RpShCiamUplDTJ7OxOBE+fShCdWKcEny+3t5eupelLbvD5weA8W1sakzIndAQKSKbyfWcvPZgBa+WdUWGRBNpAk6nCJY+EqsEgNlBRTmGA4Cf4H0qrOj00X8N5Pnsm5oRhcoQJRjmQwEF8gzLirzCFyJDohNB6svggJKY9hqi3Q1xShdl6JVJnDkkXjVFYHnVz4ZU6FUCYdXLhVXVK/FKwMuoEAIIJUkOh/5PiTLTUE9A2Ya4ILFesDhXQ63BNVsD5uuhWjvImqulnkSs19B8df1ptn4D0x+XaoLJcChQ19IQmWk23NP5lbpGmEmS9QtBQCbXC0fCagthqMzKvYRspWCLpWtyem5tMGsrLaKN07VOmnwnoK6Tv1m5GkulGgpTsQvm5EMWi0fzu3Cd6j/qUvf0CmUCd255ldFHxICY0mjShzK5nqZly/BZIjmEZIbbs6g90wTvKeSTnDTd4UCECRKFnANnrKSRYk6TlqbMXCXXMIkTM1chlwzFkfEjLZTtzDRhU+voxOih1uybDSmSo3fPXEWBoj6rENXIVWNOBSjxNOeypuTuCHTWbxr1yLQNkeXY5HpEN2eOzEmrG5rkAIJtS9eh3crMuvQahoNFSYdzrQYXoBZpJNddt+bYCYkJkstoIBRgwax8k7Pnn/a51kEK3Tkf4ibkm/ouEy3K/phB1zAYdJ0qdrlAEHiZGlBdVrLeXfIkhUjtoZFoKpLVR2uiSpOyZ4rYsSHdDdMpUbOLy1za5YvyrbwXoaHNYOHkm1B5CTMv74EIVN2dKWXmV1b4OcAwLBPkgwxoAy/enXUzz7kXxK+5N1za1+g/9+3il7Z8vuzwZ0vWtoOKSSGXq7SIhG/Rqr8OrYqwX5V8UHm2uvJ01Ti/ILJUsqW2w85o/Knlivun/TWvVP1YdGC8b9foyLGq43uvzRt7IXrkJFe5XGs88snx6vKRr9tfqzi6xbj95pqPv6h0XbzRv33vmDF8OnqhS2UHT+2+vngMdjQFKfhO6/d6dNuO97Rf9Y7xhcb5Lxf9ue3VD0ec4c1F1Zvi7+/bD2+eOHBo/qZjN7uu7DwztC557m/X7mU3ty+Pc4/Xu8/ENm9//uhHI2/90T/O1Z1eBsa63v5514lLdQePPFvb0f77reqrowdLl5z7AUsnd3yz7/xWt7Ln6rvoifo9bzxzo+nC8O3WkU+fvv7djtFwbXF0fuq3s56my9eu3Mht4z/WkzQdqxMAAA==");
+myHeaders.append("Cookie", "dp1=bu1p/QEBfX0BAX19AQA**6963fc53^");
+myHeaders.append('Access-Control-Allow-Origin','*');
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
 
+};
+
+//Ebay Fetch API
+//This is an example request, we still need to do stuff with this link.  
+fetch("https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q=drone&limit=3", requestOptions)
+.then((response) => {
+    console.log(response);
+    return response.json();
+})
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
 
 //Displays locally saved movies
 var moviePoster = $("#movie-poster");
