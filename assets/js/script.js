@@ -17,57 +17,83 @@ var searchBar = $("#search-bar");
 var searchButton = $("#button-search");
 var synopsisInfo = $("#synopsis");
 var movieTitleHeader = $("#movieTitle");
+var savedMoviesContainer = $('#saved-movies-container');
+
+//Creates a variable that immediately pulls any data saved under the 'savedMovies' key, OR creates an empty array if such a key does not exist.
+var savedMovieData = JSON.parse(localStorage.getItem('savedMovies')) || [];
 
 searchButton.on("click", function () {
-    inputGetter();
-});
-
-// for loop that loads local storage
-// ===============================
-for (var i = 0; i < localStorage.length; i++) {
-    console.log(localStorage.key(i));
-}
-
-// function that saves movies locally
-// ===============================
-function saveMovie() {
-    var movieKey = searchBar.val();
-    var movieValue = searchBar.val();
-    localStorage.setItem(movieKey, movieValue);
-    console.log(localStorage.getItem(movieKey));
-}
-
-// ===============================
-
-function inputGetter() {
-    var movieTitleInput = searchBar.val();
-    saveMovie();
+    var movieTitleInput = searchBar.val().toLowerCase();
     console.log(movieTitleInput);
     searchBar.val("");
+    if (movieTitleInput != ''){
+    handleMovieData(movieTitleInput);
+    } else {
+        alert('Must type in a movie');
+    }
+});
+
+//Function that displays locally stored movies as their own buttons that contain listeners to the handleMovieData function
+function displaySavedMovies() {
+    savedMoviesContainer.empty();
+
+    $.each(savedMovieData, function (index, value) {
+        //Create a button for each value in the savedMovieData Array
+        var savedMovieButton = $('<button>', {
+            text: value,
+            class: 'button secondary expanded'
+        });
+        //Give each of those buttons an event listener with the handleMovieData function
+        savedMovieButton.on('click', function () {
+            handleMovieData(value);
+        });
+        //Append the buttons to the container
+        savedMoviesContainer.append(savedMovieButton);
+        console.log(value);
+    });
+}
+
+
+// function that saves movies locally
+function saveMovie(movieTitleInput) {
+    // var movieTitleInput = searchBar.val().toLowerCase();
+    console.log(movieTitleInput);
+    savedMovieData.push(movieTitleInput); //Adds the current movieTitleInput to the savedMovieData Array
+    localStorage.setItem('savedMovies', JSON.stringify(savedMovieData)); //Sets the new updated Data to the savedMovies key.
+    console.log(localStorage.getItem('savedMovies'));
+    displaySavedMovies();
+    searchBar.val("");
+}
+
+function handleMovieData(movieTitleInput) {
     fetch(
         "https://api.themoviedb.org/3/search/movie?query=" +
-            movieTitleInput +
-            "&api_key=" +
-            API_KEY
+        movieTitleInput +
+        "&api_key=" +
+        API_KEY
     )
         .then((response) => {
             console.log(response);
             return response.json();
         })
         .then((data) => {
-            postMovieData(data);
+            console.log('data results length' + data.results.length);
+            if (data.results.length === 0) {
+                alert('That ain\'t a movie, bub');
+                return;
+            } else {
+                postMovieData(data);
+                
+                // Save the movie only if it's not already in the list
+                if (!savedMovieData.includes(movieTitleInput)) {
+                    saveMovie(movieTitleInput);
+                    displaySavedMovies();
+                }
+            }
         })
         .catch((error) => {
             console.log("error");
         });
-
-    return;
-    // when input is in field
-    // movie title is extracted
-    // then movie title is added to search query url
-    // then a fetch request is made to retrieve the movie poster and information about the movie
-    // then that information is appended to the screen
-    //
 }
 
 function postMovieData(data) {
@@ -94,3 +120,5 @@ function myFunction() {
         x.className = "topnav";
     }
 }
+
+displaySavedMovies();
