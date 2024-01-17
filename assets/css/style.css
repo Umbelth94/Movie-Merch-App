@@ -8,6 +8,7 @@
 
 body{
   text-align:center;
+  background-color:var(--cinereous)
 }
 
 #search-header{
@@ -26,6 +27,7 @@ body{
 
 .small-card{
   width:auto;
+  border:solid black 2px;
 }
 
 .small-card .card-divider{
