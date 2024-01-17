@@ -5,6 +5,10 @@ var searchBar = $("#search-bar");
 var searchButton = $("#button-search");
 var synopsisInfo = $("#synopsis");
 var movieTitleHeader = $("#movieTitle");
+var movieTagline = $("#movieTagline")
+var movieRunTime = $("#runtime")
+var movieRevenue = $("#revenue");
+var moviePopularity = $("#popularity");
 var savedMoviesContainer = $('#saved-movies-container');
 var iframe = $("#iframe");
 var movieWarningMessage = $("#movie-warning");
@@ -108,12 +112,24 @@ function displayIdData(data){
     var movieSynopsis = data.overview;
     var posterImage = data.poster_path;
     var movieId = data.id;
-    movieTitleHeader.text(movieTitle + releaseDate);
+
+     //Stuff I'm adding
+     var runTime = data.runtime;
+     var tagLine = data.tagline;
+     var popularity = data.popularity
+     var revenue = data.revenue;
+     var revenueWithCommas = formatNumberWithCommas(revenue);
+     //Stuff I'm adding
+    movieTitleHeader.text(movieTitle + '(' + releaseDate + ')');
+    movieTagline.text(tagLine);
     moviePoster.attr(
         "src",
         "https://image.tmdb.org/t/p/original/" + posterImage
     );
     synopsisInfo.text(movieSynopsis);
+    movieRunTime.text('Runtime: ' + runTime + ' minutes');
+    movieRevenue.text('Revenue: ' + '$' + revenueWithCommas)
+    moviePopularity.text('Popularity: ' + popularity);
     handleYoutube(movieId);
 }
 
@@ -160,7 +176,7 @@ function displayMovieData(movieData){
     var movieSynopsis = movieData.synopsis;
     var posterImage = movieData.posterImage;
     console.log(movieData.movieId)
-    movieTitleHeader.text(movieTitle + releaseDate);
+    movieTitleHeader.text(movieTitle + '(' + releaseDate + ')');
     moviePoster.attr(
         "src",
         "https://image.tmdb.org/t/p/original/" + posterImage
@@ -264,6 +280,16 @@ function myFunction() {
     } else {
         x.className = "topnav";
     }
+}
+
+function formatNumberWithCommas(number) {
+    // Convert the number to a string
+    const numberString = number.toString();
+
+    // Use a regular expression to match every group of three digits
+    const formattedNumber = numberString.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    return formattedNumber;
 }
 
 
