@@ -20,17 +20,6 @@ var requestOptions = {
 
 };
 
-//Ebay Fetch API
-//This is an example request, we still need to do stuff with this link.  
-fetch("https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?q=drone&limit=3", requestOptions)
-.then((response) => {
-    console.log(response);
-    return response.json();
-})
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
-
-//Displays locally saved movies
 var moviePoster = $("#movie-poster");
 const API_KEY = "70f6eb9853632fc7fc6755fa5349de0a";
 var searchBar = $("#search-bar");
@@ -123,12 +112,14 @@ function displayMovieData(movieData){
     var releaseDate = movieData.releaseDate;
     var movieSynopsis = movieData.synopsis;
     var posterImage = movieData.posterImage;
+    console.log(movieData.movieId)
     movieTitleHeader.text(movieTitle + releaseDate);
     moviePoster.attr(
         "src",
         "https://image.tmdb.org/t/p/original/" + posterImage
     );
     synopsisInfo.text(movieSynopsis);
+    handleYoutube(movieData.movieId);
 }
 
 
@@ -192,3 +183,33 @@ function myFunction() {
 }
 
 displaySavedMovies();
+
+// var tmdb_id = "";
+var iframe = $("#iframe");
+var requestKinoOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+function handleYoutube(movieId){
+    iframe.attr('src',"")
+  fetch("https://api.kinocheck.de/movies?tmdb_id=" + movieId, requestKinoOptions)
+    .then(response => {
+        console.log(response);
+        return response.json();
+    })
+    .then(result => {
+        console.log(result);
+        if (result.trailer === null){
+            console.log('no movie trailer');
+            iframe.addClass('hide');
+            return;
+        }
+        iframe.removeClass('hide');
+        console.log(result.trailer.youtube_video_id);
+        youtube_id = result.trailer.youtube_video_id;
+        iframe.attr('src',"https://www.youtube.com/embed/" + youtube_id)
+    })
+    .catch(error => console.log('error', error));
+}
+
