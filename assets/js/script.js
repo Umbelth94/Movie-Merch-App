@@ -198,6 +198,9 @@ function displayMultipleMovies(data) {
         var releaseDate = data.results[i].release_date;
         console.log(movieTitle);
         var movieSynopsis = data.results[i].overview;
+        if (movieSynopsis === ''){
+            movieSynopsis = 'No Movie Details In Database'
+        }
         console.log(movieSynopsis);
         var posterImage = data.results[i].poster_path;
         console.log(posterImage);
@@ -205,22 +208,26 @@ function displayMultipleMovies(data) {
         console.log(movieId);
 
         var card = $('<div class="card"></div>');
-        var posterimg = $('<img>');
+        var cardDivider = $('<div class="card-divider"></div>');
+        var posterimg = $('<img class="poster-img">');
         if (posterImage === null){
             console.log('NO IMAGE HERE');
             posterimg.attr({
-                src:"https://placehold.co/600x400?text=No+Image+Found",
+                src:"https://placehold.co/400x600?text=No+Image+Found",
+                style:"width:238px",
                 alt:'No Image could be found'
             })
         } else {
         posterimg.attr({
             src: "https://image.tmdb.org/t/p/original/" + posterImage,
-            style: "width: 200px",
-            class: 'small-card-image',
+            style: "min-width: 238px min-height: 400px",
+            // class: '',
         })};
+        posterimg.addClass('float-center')
+        card.append(cardDivider);
         card.addClass('small-card');
-        card.append('<h2>' + movieTitle + '</h2>');
-        card.append('<h3>' + releaseDate + '</h3>');
+        cardDivider.append('<h4>' + movieTitle + '</h4>');
+        cardDivider.append('<h5>' + releaseDate + '</h5>');
         card.append(posterimg);
         card.append('<p>' + movieSynopsis + '</p>');
 

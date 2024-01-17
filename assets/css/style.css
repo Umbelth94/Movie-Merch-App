@@ -17,8 +17,43 @@ body{
   margin-top: 3rem;
 }
 
-.input-group-button{
- 
+
+
+#grid-container{
+  max-width:auto;
+  padding:20px;
+}
+
+.small-card{
+  width:auto;
+}
+
+.small-card .card-divider{
+  height:200px;
+  justify-content:center;
+  background-color:var(--blush)
+}
+
+.small-card{
+  background-color:#ad9b9a;
+  cursor:grab;
+}
+
+
+
+div.small-card p{
+padding:20px;
+}
+.poster-img{
+  min-width:238px;
+  min-height:357px;
+}
+.card-divider{
+  display:flex;
+  flex-direction:column;
+}
+.movie-card-container .card-divider{
+  height:300px;
 }
 .input-group-rounded .input-group-field {
     border-radius: 5000px 0 0 5000px;
@@ -37,17 +72,13 @@ body{
 }
 
 #movie-card{
-    margin-left:auto;
-    margin-right:auto;
+  margin-left:auto;
+  margin-right:auto;
     background-color:var(--cinereous);
     border:black solid 2px;
     border-radius:5px;
 }
 
-.card-divider{
-  display:flex;
-  flex-direction:column;
-}
 
 /*Buttons for the saved movies*/
 .button{
