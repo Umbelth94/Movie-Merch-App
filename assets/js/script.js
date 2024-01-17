@@ -113,13 +113,13 @@ function displayIdData(data){
     var posterImage = data.poster_path;
     var movieId = data.id;
 
-     //Stuff I'm adding
+    
      var runTime = data.runtime;
      var tagLine = data.tagline;
      var popularity = data.popularity
      var revenue = data.revenue;
      var revenueWithCommas = formatNumberWithCommas(revenue);
-     //Stuff I'm adding
+  
     movieTitleHeader.text(movieTitle + '(' + releaseDate + ')');
     movieTagline.text(tagLine);
     moviePoster.attr(
@@ -166,7 +166,7 @@ function handleMovieData(movieTitleInput) {
         });
 }
 
-//Make this fetch by ID???
+
 function displayMovieData(movieData){
     console.log('movie data ' + movieData);
     movieCard.removeClass('hide');
@@ -175,6 +175,12 @@ function displayMovieData(movieData){
     var releaseDate = movieData.releaseDate;
     var movieSynopsis = movieData.synopsis;
     var posterImage = movieData.posterImage;
+    // var runTime = movieData.runtime;
+    // var tagLine = movieData.tagline;
+    // var popularity = movieData.popularity
+    // var revenue = data.revenue;
+    // var revenueWithCommas = formatNumberWithCommas(revenue);
+ 
     console.log(movieData.movieId)
     movieTitleHeader.text(movieTitle + '(' + releaseDate + ')');
     moviePoster.attr(
@@ -187,6 +193,7 @@ function displayMovieData(movieData){
 
 
 function displayMultipleMovies(data) {
+    console.log(data);
     console.log(data.results.length);
     //Loop through the first 20 results of the movie data and create cards for each one
     for (let i = 0; i < data.results.length; i++) {
