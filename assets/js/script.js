@@ -211,11 +211,18 @@ function displayMultipleMovies(data) {
 
         var card = $('<div class="card"></div>');
         var posterimg = $('<img>');
+        if (posterImage === null){
+            console.log('NO IMAGE HERE');
+            posterimg.attr({
+                src:"https://placehold.co/600x400?text=No+Image+Found",
+                alt:'No Image could be found'
+            })
+        } else {
         posterimg.attr({
             src: "https://image.tmdb.org/t/p/original/" + posterImage,
             style: "width: 200px",
             class: 'small-card-image',
-        });
+        })};
         card.addClass('small-card');
         card.append('<h2>' + movieTitle + '</h2>');
         card.append('<h3>' + releaseDate + '</h3>');
