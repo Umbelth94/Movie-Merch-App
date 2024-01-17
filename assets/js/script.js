@@ -1,8 +1,3 @@
-//TODO:
-    //Clear movies when one is selected
-    //Save the favorited movies ONLY once one is selected
-    //When the favorited movies are picked from menu, only populate card and merch info for that movie (maybe by saving the movie id somewhere)
-
 var movieCard = $('#movie-card')
 var moviePoster = $("#movie-poster");
 const API_KEY = "70f6eb9853632fc7fc6755fa5349de0a";
@@ -11,6 +6,8 @@ var searchButton = $("#button-search");
 var synopsisInfo = $("#synopsis");
 var movieTitleHeader = $("#movieTitle");
 var savedMoviesContainer = $('#saved-movies-container');
+var iframe = $("#iframe");
+var movieWarningMessage = $("#movie-warning");
 
 //Creates a variable that immediately pulls any data saved under the 'savedMovies' key, OR creates an empty array if such a key does not exist.
 var savedMovieData = JSON.parse(localStorage.getItem('savedMovies')) || [];
@@ -19,8 +16,13 @@ searchButton.on("click", function () {
     var movieTitleInput = searchBar.val().toLowerCase();
     console.log(movieTitleInput);
     searchBar.val("");
-    if (movieTitleInput != ''){
-    handleMovieData(movieTitleInput);
+    if (movieTitleInput != ''){ //Clear movie title input
+        $('#movie-card-container').empty();
+        movieCard.addClass('hide');
+        iframe.addClass('hide');
+        handleMovieData(movieTitleInput);
+        movieWarningMessage.text('');
+        
     } else {
         //Make a modal for this
         alert('Must type in a movie');
@@ -37,6 +39,7 @@ function displaySavedMovies() {
         button.addClass('button expanded secondary')
         button.text(movieTitle);
         button.click(function(){
+            $('#movie-card-container').empty();
             console.log(Object.values(movie));
             handleIdData(Object.values(movie))
         })
@@ -217,8 +220,6 @@ function displayMultipleMovies(data) {
     }
 }
 
-
-var iframe = $("#iframe");
 //Header for the kinocheck API
 var requestKinoOptions = {
     method: 'GET',
@@ -227,15 +228,23 @@ var requestKinoOptions = {
 //Kinocheck API Fetch request
 function handleYoutube(movieId){
     iframe.attr('src',"")
+    movieWarningMessage.text('');
     fetch("https://api.kinocheck.de/movies?tmdb_id=" + movieId, requestKinoOptions)
     .then(response => {
-        console.log(response);
-        return response.json();
+        if (response.status === 200){ //Checks if the response is good (Usually if the id exists in the KinoOptions database)
+            console.log(response);
+            return response.json();
+        } else {
+            movieWarningMessage.text('Sorry, that movie does not exist in the API database');
+        console.log('no movie id exists on kinoOptions');
+        return; 
+        }
     })
     .then(result => {
         console.log(result);
-        if (result.trailer === null){
+        if (result.trailer === null){ //If the kinoCheck api does not contain a trailer
             console.log('no movie trailer');
+            movieWarningMessage.text('Oopsies, that trailer does not exist in the database');
             iframe.addClass('hide');
             return;
         }

@@ -35,6 +35,10 @@
   background-color:var(--blush)
 }
 
+#movie-warning{
+  text-align:center;
+}
+
 .small-card{
   max-width:15rem;
   margin:.5rem;
