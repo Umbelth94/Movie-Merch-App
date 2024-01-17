@@ -28,7 +28,7 @@ searchButton.on("click", function () {
         movieWarningMessage.text('');
         
     } else {
-        //Make a modal for this
+        //////////////////////////////////MAKE A MODAL FOR THIS/////////////////////////
         alert('Must type in a movie');
     }
 });
@@ -150,6 +150,7 @@ function handleMovieData(movieTitleInput) {
             console.log('data results length' + data.results.length);
             //Check to see if the request returned any movies
             if (data.results.length === 0) {
+                ///////////////////////MAKE A MODAL FOR THIS////////////////////////
                 alert('That ain\'t a movie, bub');
                 return;
             } else {
@@ -174,13 +175,7 @@ function displayMovieData(movieData){
     var movieTitle = movieData.title;
     var releaseDate = movieData.releaseDate;
     var movieSynopsis = movieData.synopsis;
-    var posterImage = movieData.posterImage;
-    // var runTime = movieData.runtime;
-    // var tagLine = movieData.tagline;
-    // var popularity = movieData.popularity
-    // var revenue = data.revenue;
-    // var revenueWithCommas = formatNumberWithCommas(revenue);
- 
+    var posterImage = movieData.posterImage; 
     console.log(movieData.movieId)
     movieTitleHeader.text(movieTitle + '(' + releaseDate + ')');
     moviePoster.attr(
@@ -284,16 +279,6 @@ function handleYoutube(movieId){
         iframe.attr('src',"https://www.youtube.com/embed/" + youtube_id)
     })
     .catch(error => console.log('error', error));
-}
-
-/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
-    }
 }
 
 function formatNumberWithCommas(number) {
