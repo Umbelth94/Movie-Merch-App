@@ -3,23 +3,7 @@
     //Save the favorited movies ONLY once one is selected
     //When the favorited movies are picked from menu, only populate card and merch info for that movie (maybe by saving the movie id somewhere)
 
-
-
-//Fetch Ebay API
-//Selectors help refine search data
-//Display merch from results for movie input
-
-var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer v^1.1#i^1#f^0#p^1#r^0#I^3#t^H4sIAAAAAAAAAOVYbWgURxjOJZe0qU1tqTRioz22UknT25u93b2P1btyMabGJpfonVFDJe7HbLLJfpw7s0kuPzSmIFKL2BYsqEhsEYTSFgWxQlOFtkipmIL+EPujfrS0tKSg0EYwpZ27i/GSikZz0EDvz7Ez7/vO8z7zfswMGCgrf3nn6p1jFa7HiocGwECxy8XMA+VlpTVPlRQvKi0CeQKuoYGlA+7Bkl9WINHQU8I6iFKWiaCnz9BNJGQHI5Rjm4IlIg0JpmhAJGBZSMSaGgU/DYSUbWFLtnTK01AXoWQoyyqvhAKiEpAgw5FR847NpBWhJBlKQBRVjueCEheWyDxCDmwwERZNHKH8wM95AeNl2CQTFPigwAAasOE2ytMKbaRZJhGhARXNwhWyunYe1vtDFRGCNiZGqGhDrD7RHGuoWxVPrvDl2YpO8JDAInbQ1K+VlgI9raLuwPsvg7LSQsKRZYgQ5YvmVphqVIjdAfMI8LNU8zLgGYYLciwAQZYLFYTKess2RHx/HJkRTfGqWVEBmljD6QcxStiQuqCMJ77ixERDnSfzt9YRdU3VoB2hVtXGNsVaWqho0hZ7NLTe8BpWjwYNaHsTtRu9UPUzIb8aYr0hkZPCLAhOLJSzNkHztJVWWqaiZUhDnriFayFBDadzw+VxQ4SazWY7puIMony58CSHfFtmU3O76OBOM7OvBKWJPdnPB+/ApDbGtiY5GE5amD6RpShCiamUplDTJ7OxOBE+fShCdWKcEny+3t5eupelLbvD5weA8W1sakzIndAQKSKbyfWcvPZgBa+WdUWGRBNpAk6nCJY+EqsEgNlBRTmGA4Cf4H0qrOj00X8N5Pnsm5oRhcoQJRjmQwEF8gzLirzCFyJDohNB6svggJKY9hqi3Q1xShdl6JVJnDkkXjVFYHnVz4ZU6FUCYdXLhVXVK/FKwMuoEAIIJUkOh/5PiTLTUE9A2Ya4ILFesDhXQ63BNVsD5uuhWjvImqulnkSs19B8df1ptn4D0x+XaoLJcChQ19IQmWk23NP5lbpGmEmS9QtBQCbXC0fCagthqMzKvYRspWCLpWtyem5tMGsrLaKN07VOmnwnoK6Tv1m5GkulGgpTsQvm5EMWi0fzu3Cd6j/qUvf0CmUCd255ldFHxICY0mjShzK5nqZly/BZIjmEZIbbs6g90wTvKeSTnDTd4UCECRKFnANnrKSRYk6TlqbMXCXXMIkTM1chlwzFkfEjLZTtzDRhU+voxOih1uybDSmSo3fPXEWBoj6rENXIVWNOBSjxNOeypuTuCHTWbxr1yLQNkeXY5HpEN2eOzEmrG5rkAIJtS9eh3crMuvQahoNFSYdzrQYXoBZpJNddt+bYCYkJkstoIBRgwax8k7Pnn/a51kEK3Tkf4ibkm/ouEy3K/phB1zAYdJ0qdrlAEHiZGlBdVrLeXfIkhUjtoZFoKpLVR2uiSpOyZ4rYsSHdDdMpUbOLy1za5YvyrbwXoaHNYOHkm1B5CTMv74EIVN2dKWXmV1b4OcAwLBPkgwxoAy/enXUzz7kXxK+5N1za1+g/9+3il7Z8vuzwZ0vWtoOKSSGXq7SIhG/Rqr8OrYqwX5V8UHm2uvJ01Ti/ILJUsqW2w85o/Knlivun/TWvVP1YdGC8b9foyLGq43uvzRt7IXrkJFe5XGs88snx6vKRr9tfqzi6xbj95pqPv6h0XbzRv33vmDF8OnqhS2UHT+2+vngMdjQFKfhO6/d6dNuO97Rf9Y7xhcb5Lxf9ue3VD0ec4c1F1Zvi7+/bD2+eOHBo/qZjN7uu7DwztC557m/X7mU3ty+Pc4/Xu8/ENm9//uhHI2/90T/O1Z1eBsa63v5514lLdQePPFvb0f77reqrowdLl5z7AUsnd3yz7/xWt7Ln6rvoifo9bzxzo+nC8O3WkU+fvv7djtFwbXF0fuq3s56my9eu3Mht4z/WkzQdqxMAAA==");
-myHeaders.append("Cookie", "dp1=bu1p/QEBfX0BAX19AQA**6963fc53^");
-myHeaders.append('Access-Control-Allow-Origin','*');
-var requestOptions = {
-  method: 'GET',
-  headers: myHeaders,
-  redirect: 'follow'
-
-};
-
+var movieCard = $('#movie-card')
 var moviePoster = $("#movie-poster");
 const API_KEY = "70f6eb9853632fc7fc6755fa5349de0a";
 var searchBar = $("#search-bar");
@@ -38,6 +22,7 @@ searchButton.on("click", function () {
     if (movieTitleInput != ''){
     handleMovieData(movieTitleInput);
     } else {
+        //Make a modal for this
         alert('Must type in a movie');
     }
 });
@@ -46,34 +31,77 @@ searchButton.on("click", function () {
 function displaySavedMovies() {
     savedMoviesContainer.empty();
 
-    $.each(savedMovieData, function (index, value) {
-        //Create a button for each value in the savedMovieData Array
-        var savedMovieButton = $('<button>', {
-            text: value,
-            class: 'button secondary expanded'
-        });
-        //Give each of those buttons an event listener with the handleMovieData function
-        savedMovieButton.on('click', function () {
-            handleMovieData(value);
-        });
-        //Append the buttons to the container
-        savedMoviesContainer.append(savedMovieButton);
-        console.log(value);
-    });
-}
-
+    savedMovieData.forEach(function(movie) {
+        var movieTitle = Object.keys(movie)[0];
+        var button = $('<button>');
+        button.text(movieTitle);
+        button.click(function(){
+            console.log(Object.values(movie));
+            handleIdData(Object.values(movie))
+        })
+        savedMoviesContainer.append(button);
+    })
+    };
 
 // function that saves movies locally
-function saveMovie(movieTitleInput) {
-    // var movieTitleInput = searchBar.val().toLowerCase();
-    console.log(movieTitleInput);
-    savedMovieData.push(movieTitleInput); //Adds the current movieTitleInput to the savedMovieData Array
+function saveMovie(title,id){
+    var movieTitle = title;
+    console.log('saving movie ' + movieTitle);
+    savedMovieData.push({[movieTitle]:id}); //Adds the current movieTitleInput to the savedMovieData Array
     localStorage.setItem('savedMovies', JSON.stringify(savedMovieData)); //Sets the new updated Data to the savedMovies key.
     console.log(localStorage.getItem('savedMovies'));
     displaySavedMovies();
     searchBar.val("");
 }
 
+
+const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYjgzYmYxODA0MjlhNDVmYTVhNDBhNmE3NzUwNmMwOSIsInN1YiI6IjY1OWNhMjY3ZjI5ZDY2MDBlZjdhZDdmYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.OZpf5ufNydsGsuvkRPb5HnpeiQRd0zmcI_YPcPyadWc'
+    }
+  };
+  
+//TMD API Fetch Request for ID from saved buttons
+function handleIdData(movieId) {
+    fetch('https://api.themoviedb.org/3/movie/' + movieId 
+    +'?language=en-US', options)
+        .then((response) => {
+            console.log(response);
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            // Check to see if the request returned any movies
+                ///////GET THIS TO WORK WITH THE MOVIE DATA
+                    //Maybe make a whole new function??
+                displayIdData(data)
+                // Save the movie only if it's not already in the list
+                
+                
+            
+        })
+        
+        }
+
+function displayIdData(data){
+    movieCard.removeClass('hide');
+    var movieTitle = data.original_title;
+    var releaseDate = data.release_date;
+    var movieSynopsis = data.overview;
+    var posterImage = data.poster_path;
+    var movieId = data.id;
+    movieTitleHeader.text(movieTitle + releaseDate);
+    moviePoster.attr(
+        "src",
+        "https://image.tmdb.org/t/p/original/" + posterImage
+    );
+    synopsisInfo.text(movieSynopsis);
+    handleYoutube(movieId);
+}
+
+//TMBD API Fetch Request For Search
 function handleMovieData(movieTitleInput) {
     fetch(
         "https://api.themoviedb.org/3/search/movie?query=" +
@@ -88,15 +116,15 @@ function handleMovieData(movieTitleInput) {
         .then((data) => {
             console.log(data);
             console.log('data results length' + data.results.length);
+            //Check to see if the request returned any movies
             if (data.results.length === 0) {
                 alert('That ain\'t a movie, bub');
                 return;
             } else {
-                // displayMovieData(data);
                 displayMultipleMovies(data);
                 // Save the movie only if it's not already in the list
                 if (!savedMovieData.includes(movieTitleInput)) {
-                    saveMovie(movieTitleInput);
+                    // saveMovie(movieTitleInput);
                     displaySavedMovies();
                 }
             }
@@ -106,8 +134,11 @@ function handleMovieData(movieTitleInput) {
         });
 }
 
-
+//Make this fetch by ID???
 function displayMovieData(movieData){
+    console.log('movie data ' + movieData);
+    movieCard.removeClass('hide');
+    console.log('movie data');
     var movieTitle = movieData.title;
     var releaseDate = movieData.releaseDate;
     var movieSynopsis = movieData.synopsis;
@@ -125,7 +156,7 @@ function displayMovieData(movieData){
 
 function displayMultipleMovies(data) {
     console.log(data.results.length);
-
+    //Loop through the first 20 results of the movie data and create cards for each one
     for (let i = 0; i < data.results.length; i++) {
         console.log('loop ' + i);
         console.log(data.results[i].title);
@@ -155,6 +186,7 @@ function displayMultipleMovies(data) {
         // Use a closure to capture the current movie details
         (function (title, date, synopsis, image, id) {
             card.on('click', function () {
+                saveMovie(title, id);
                 console.log('clicked');
                 // Pass the specific movie data to displayMovieData
                 displayMovieData({
@@ -164,7 +196,7 @@ function displayMultipleMovies(data) {
                     posterImage: image,
                     movieId: id
                 });
-            $('#movie-card-container').empty();
+                $('#movie-card-container').empty();
             });
         })(movieTitle, releaseDate, movieSynopsis, posterImage, movieId); //Immediately Invoked Function Expression (IIFE) to have the data stored for each event listener
 
@@ -172,28 +204,17 @@ function displayMultipleMovies(data) {
     }
 }
 
-/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
-    }
-}
 
-displaySavedMovies();
-
-// var tmdb_id = "";
 var iframe = $("#iframe");
+//Header for the kinocheck API
 var requestKinoOptions = {
     method: 'GET',
     redirect: 'follow'
-  };
-  
+};
+//Kinocheck API Fetch request
 function handleYoutube(movieId){
     iframe.attr('src',"")
-  fetch("https://api.kinocheck.de/movies?tmdb_id=" + movieId, requestKinoOptions)
+    fetch("https://api.kinocheck.de/movies?tmdb_id=" + movieId, requestKinoOptions)
     .then(response => {
         console.log(response);
         return response.json();
@@ -212,4 +233,19 @@ function handleYoutube(movieId){
     })
     .catch(error => console.log('error', error));
 }
+
+/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+function myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+}
+
+
+displaySavedMovies();
+
+
 
