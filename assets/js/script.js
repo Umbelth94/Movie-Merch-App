@@ -34,6 +34,7 @@ function displaySavedMovies() {
     savedMovieData.forEach(function(movie) {
         var movieTitle = Object.keys(movie)[0];
         var button = $('<button>');
+        button.addClass('button expanded secondary')
         button.text(movieTitle);
         button.click(function(){
             console.log(Object.values(movie));
@@ -45,6 +46,10 @@ function displaySavedMovies() {
 
 // function that saves movies locally
 function saveMovie(title,id){
+    console.log(containsKey(savedMovieData, title));
+    if (containsKey(savedMovieData, title)){ //Check if the title you're saving already exists in the savedMovieData array
+        return
+    } else {
     var movieTitle = title;
     console.log('saving movie ' + movieTitle);
     savedMovieData.push({[movieTitle]:id}); //Adds the current movieTitleInput to the savedMovieData Array
@@ -52,8 +57,20 @@ function saveMovie(title,id){
     console.log(localStorage.getItem('savedMovies'));
     displaySavedMovies();
     searchBar.val("");
+    }
 }
 
+//Checks to see if a key exists 
+function containsKey(arr, targetKey) {
+    console.log(arr);
+    console.log(targetKey);
+    for (const pair of arr) {
+        if (pair[targetKey] !== undefined) {
+            return true; // Key found
+        }
+    }
+    return false; // Key not found
+}
 
 const options = {
     method: 'GET',
@@ -78,13 +95,9 @@ function handleIdData(movieId) {
                     //Maybe make a whole new function??
                 displayIdData(data)
                 // Save the movie only if it's not already in the list
-                
-                
-            
-        })
-        
-        }
+            })}
 
+//Made this for when a saved movie is called because the data is called slightly differently
 function displayIdData(data){
     movieCard.removeClass('hide');
     var movieTitle = data.original_title;

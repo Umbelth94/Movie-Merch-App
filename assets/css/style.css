@@ -26,11 +26,18 @@
     background-color:var(--cinereous);
 }
 
+/*Buttons for the saved movies*/
+.button{
+  margin:.5rem 0px;
+}
 
+#saved-movies-container{
+  background-color:var(--blush)
+}
 
 .small-card{
   max-width:15rem;
-  margin:2rem;
+  margin:.5rem;
 }
 /* Add a black background color to the top navigation */
 .topnav {
