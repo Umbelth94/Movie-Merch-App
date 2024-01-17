@@ -14,47 +14,52 @@
 
 <!-- Navbar -->
 <div class="topnav" id="myTopnav">
-    <a href="#home" class="active">Home</a>
-    <a href="#link 2">Link 2</a>
-    <a href="#link 3">Link 3</a>
-    <a href="#link 4">Link 4</a>
-    <a href="#link 5">Link 5</a>
-    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
-    </a>
-</div>
-<body>
-    <ul class="dropdown menu" data-dropdown-menu>
+    <h1 href="#home" class="active">Trailer-Finder</h1>
+    <ul class="dropdown menu  float-center" data-dropdown-menu>
         <li>
             <a href="#">Saved Movies</a>
             <ul id="saved-movies-container" class="menu"></ul>
         </li>
     </ul>
+
+    </a>
+</div>
+<body>
+
     <!-- Search Bar -->
+    <h3 id="search-header">Search for a movie!</h3>
     <div class="input-group input-group-rounded">
+        
         <input id="search-bar" class="input-group-field" type="search" />
         <div class="input-group-button">
             <input type="submit" id="button-search" class="button secondary" value="Search" />
         </div>
     </div>
     <!-- Movie Card -->
-    <div id="movie-card" class="card" style="width: 500px;">
+    <div id="movie-card" class="card hide" style="width: 500px;">
         <div class="card-divider">
-            <h3 id="movieTitle"></h3>
+                <h3 id="movieTitle" class="columns-12"></h3>
+                <h4 id="movieTagline" class="columns-12"></h4>
         </div>
-        <img src="" id="movie-poster">
+        <img src="" id="movie-poster" class="float-center">
         <div class="card-section">
-          <p id="synopsis"></p>
+            <p id="synopsis"></p>
+            <p id="runtime"></p>
+            <p id="revenue"></p>
+            <p id="popularity"></p>
         </div>
       </div>
 
-      <iframe class="float-center hide"
-            id="iframe"
-            width="420"
-            height="315"
-            src="https://www.youtube.com/embed/"
-        >
-        </iframe>
+      <div id="iframe-container">  
+        <iframe class="float-center hide"
+                id="iframe"
+                width="600"
+                height="338"
+                src="https://www.youtube.com/embed/"
+            >
+            </iframe>
+            <h4 id="movie-warning" class="float-center"></h4>
+        </div>
 
     <!-- Smaller Movie Cards -->
     <div class="grid-container">

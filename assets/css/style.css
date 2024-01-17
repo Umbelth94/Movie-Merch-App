@@ -6,6 +6,20 @@
     --rose-quartz: #ad9b9a;
 }
 
+body{
+  text-align:center;
+}
+
+#search-header{
+  margin-top:2rem;
+}
+.input-group{
+  margin-top: 3rem;
+}
+
+.input-group-button{
+ 
+}
 .input-group-rounded .input-group-field {
     border-radius: 5000px 0 0 5000px;
     padding-left: 1rem;
@@ -17,40 +31,67 @@
 }
 
 #movie-poster {
-    width: 150px;
+    width: 200px;
+    margin-top:1rem;
+    border:black solid 2px;
 }
 
 #movie-card{
     margin-left:auto;
     margin-right:auto;
     background-color:var(--cinereous);
+    border:black solid 2px;
+    border-radius:5px;
 }
 
+.card-divider{
+  display:flex;
+  flex-direction:column;
+}
 
+/*Buttons for the saved movies*/
+.button{
+  margin:.5rem 0px;
+}
+
+#saved-movies-container{
+  background-color:var(--blush)
+}
+
+#movie-warning{
+  text-align:center;
+}
 
 .small-card{
   max-width:15rem;
-  margin:2rem;
+  margin:.5rem;
+}
+
+ul a{
+  color:white;
+  margin-left:auto;
+  margin-right:auto;
+  text-decoration:underline;
 }
 /* Add a black background color to the top navigation */
 .topnav {
+    text-align:center;
     background-color: #8d918b;
-    overflow: hidden;
   }
   
   /* Style the links inside the navigation bar */
-  .topnav a {
-    float: left;
+  .topnav h1 {
+    /* float: left; */
     display: block;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    /* padding: 14px 16px; */
     text-decoration: none;
-    font-size: 17px;
+    /* font-size: 17px; */
   }
   
   /* Change the color of links on hover */
-  .topnav a:hover {
+  .topnav h1 {
     background-color: #e85d75;
     color: black;
   }
@@ -61,11 +102,6 @@
     color: white;
   }
   
-  /* Hide the link that should open and close the topnav on small screens */
-  .topnav .icon {
-    display: none;
-  }
-
   /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
 @media screen and (max-width: 1600px) {
     .topnav a:not(:first-child) {display: none;}
