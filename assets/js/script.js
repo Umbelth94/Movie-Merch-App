@@ -325,45 +325,47 @@ displaySavedMovies();
 var modal = document.getElementById("modal");
 // var modal = $("modal");
 var span = document.getElementsById("close");
-// var span = $("#close");
+// var span = $("close");
 var modalText = document.getElementById("modal-text");
-// var modalText = $("#modal-text");
+// var modalText = $("modal-text");
 
 function trailerNotFound() {
     modal.style.display = "block";
-    modalText.text =
+    modalText.textContent =
         "Oopsies, that trailer does not exist in the database";
 };
 
 function movieNotFound() {
     modal.style.display = "block";
-    modalText.text =
+    modalText.textContent =
         "Sorry, that movie does not exist in the database";
 };
 
 function notAMovie() {
     modal.style.display = "block";
-    modalText.text = "That ain't a movie, bub";
+    modalText.textContent = "That ain't a movie, bub";
 };
 
 function movieNotEntered() {
     modal.style.display = "block";
-    modalText.text = "Must type in a movie";
+    modalText.textContent = "Must type in a movie";
 };
 
-span.onclick = function () {
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
     modal.style.display = "none";
-};
+  }
 
 // $(span).click(function() {
 //     modal.style.display = "none";
 // });
 
-window.onclick = function (event) {
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
     if (event.target == modal) {
-        modal.style.display = "none";
+      modal.style.display = "none";
     }
-};
+  }
 
 // $(window).click(function() {
 //     modal.style.display = "none";
