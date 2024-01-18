@@ -12,6 +12,7 @@ var moviePopularity = $("#popularity");
 var savedMoviesContainer = $('#saved-movies-container');
 var iframe = $("#iframe");
 var movieWarningMessage = $("#movie-warning");
+var deleteBtn = $("#delete-button");
 
 //Creates a variable that immediately pulls any data saved under the 'savedMovies' key, OR creates an empty array if such a key does not exist.
 var savedMovieData = JSON.parse(localStorage.getItem('savedMovies')) || [];
@@ -35,21 +36,24 @@ searchButton.on("click", function () {
 
 //Function that displays locally stored movies as their own buttons that contain listeners to the handleMovieData function
 function displaySavedMovies() {
+    console.log('Displaying saved movies...');
+    console.log('Number of saved movies:', savedMovieData.length);
+
     savedMoviesContainer.empty();
 
     savedMovieData.forEach(function(movie) {
         var movieTitle = Object.keys(movie)[0];
         var button = $('<button>');
-        button.addClass('button expanded secondary')
+        button.addClass('button expanded secondary');
         button.text(movieTitle);
         button.click(function(){
             $('#movie-card-container').empty();
-            console.log(Object.values(movie));
-            handleIdData(Object.values(movie))
-        })
+            console.log('Selected movie data:', Object.values(movie));
+            handleIdData(Object.values(movie));
+        });
         savedMoviesContainer.append(button);
-    })
-    };
+    });
+}
 
 // function that saves movies locally
 function saveMovie(title,id){
@@ -77,6 +81,22 @@ function containsKey(arr, targetKey) {
         }
     }
     return false; // Key not found
+}
+
+deleteBtn.on('click',function(){
+    //////THIS SHOULD BE A MODAL/////////////////////////////////////////////////////////
+    if (confirm('Are you sure you wanna delete your saved movies?') == true){
+        localStorage.clear();
+        savedMovieData = [];
+        displaySavedMovies();
+    } else {
+        return;
+}
+})
+
+function deleteStorage(){
+    localStorage.clear();
+    displaySavedMovies();
 }
 
 const options = {
