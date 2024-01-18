@@ -139,9 +139,8 @@ ul a{
   /*                Modal CSS                   */
   /* ========================================== */
 
-  /* The Modal (background) */
-  .modal {
-    display: none; /* Hidden by default */
+  /* The Modal */
+  #modal {
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     padding-top: 100px; /* Location of the box */
@@ -155,7 +154,7 @@ ul a{
   }
   
   /* Modal Content */
-  .modal-content {
+  #modal-content {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -163,8 +162,8 @@ ul a{
     width: 80%;
   }
   
-  /* The Close Button */
-  .close {
+  /* Close Button */
+  #close {
     color: #aaaaaa;
     float: right;
     font-size: 28px;

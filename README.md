@@ -21,9 +21,11 @@ You can search for movies via the search bar, and you can select previously sele
 - Display movie release date
 - Display movie poster
 
-## Deployed App
+## Deployment and Repo
 
 https://umbelth94.github.io/Movie-Merch-App/
+
+https://github.com/Umbelth94/Movie-Merch-App
 
 ## Screenshots
 ![Landing page](<assets/images/Screenshot (880).png>)

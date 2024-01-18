@@ -13,6 +13,10 @@ var savedMoviesContainer = $("#saved-movies-container");
 var iframe = $("#iframe");
 var movieWarningMessage = $("#movie-warning");
 
+var modalBody = $("#modal");
+var span = $("#close");
+var modalText = $("#modal-text");
+
 //Creates a variable that immediately pulls any data saved under the 'savedMovies' key, OR creates an empty array if such a key does not exist.
 var savedMovieData = JSON.parse(localStorage.getItem("savedMovies")) || [];
 
@@ -29,7 +33,7 @@ searchButton.on("click", function () {
         movieWarningMessage.text("");
     } else {
         //////////////////////////////////MAKE A MODAL FOR THIS/////////////////////////
-        // alert('Must type in a movie');
+        // alert("Must type in a movie");
         // function for modal to display message when no movie has been entered
         movieNotEntered();
     }
@@ -157,7 +161,7 @@ function handleMovieData(movieTitleInput) {
             //Check to see if the request returned any movies
             if (data.results.length === 0) {
                 ///////////////////////MAKE A MODAL FOR THIS////////////////////////
-                // alert('That ain\'t a movie, bub');
+                // alert("That ain't a movie, bub");
                 // function for modal to display message when no movie matches search terms
                 notAMovie();
                 return;
@@ -278,7 +282,9 @@ function handleYoutube(movieId) {
                 console.log(response);
                 return response.json();
             } else {
-                // movieWarningMessage.text('Sorry, that movie does not exist in the API database');
+                // movieWarningMessage.text(
+                //     "Sorry, that movie does not exist in the API database"
+                // );
                 // function for modal to display message when no movie id exists
                 movieNotFound();
                 console.log("no movie id exists on kinoOptions");
@@ -290,7 +296,9 @@ function handleYoutube(movieId) {
             if (result.trailer === null) {
                 //If the kinoCheck api does not contain a trailer
                 console.log("no movie trailer");
-                // movieWarningMessage.text('Oopsies, that trailer does not exist in the database');
+                // movieWarningMessage.text(
+                //     "Oopsies, that trailer does not exist in the database"
+                // );
                 // function for modal to display message when no trailer is present
                 trailerNotFound();
                 iframe.addClass("hide");
@@ -320,56 +328,41 @@ displaySavedMovies();
 //                      Modal JS
 // ================================================
 
-// Modal variables
-
-var modal = document.getElementById("modal");
-// var modal = $("modal");
-var span = document.getElementsById("close");
-// var span = $("close");
-var modalText = document.getElementById("modal-text");
-// var modalText = $("modal-text");
-
 function trailerNotFound() {
-    modal.style.display = "block";
-    modalText.textContent =
-        "Oopsies, that trailer does not exist in the database";
-};
+    modalBody.removeClass("hide");
+    modalText.text("Oopsies, that trailer does not exist in the database");
+}
 
 function movieNotFound() {
-    modal.style.display = "block";
-    modalText.textContent =
-        "Sorry, that movie does not exist in the database";
-};
+    modalBody.removeClass("hide");
+    modalText.text("Sorry, that movie does not exist in the database");
+}
 
 function notAMovie() {
-    modal.style.display = "block";
-    modalText.textContent = "That ain't a movie, bub";
-};
+    modalBody.removeClass("hide");
+    modalText.text("That ain't a movie, bub");
+}
 
 function movieNotEntered() {
-    modal.style.display = "block";
-    modalText.textContent = "Must type in a movie";
+    modalBody.removeClass("hide");
+    modalText.text("Must type in a movie");
+}
+
+span.onclick = function () {
+    modalBody.addClass("hide");
+    modalText.text("");
+    return;
 };
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-  }
-
-// $(span).click(function() {
-//     modal.style.display = "none";
-// });
-
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
-
-// $(window).click(function() {
-//     modal.style.display = "none";
-// });
+span.click(function () {
+    modalBody.addClass("hide");
+    modalText.text("");
+    return;
+});
+$(window).click(function () {
+    modalBody.addClass("hide");
+    modalText.text("");
+    return;
+});
 
 // ================================================
 //                      Modal JS
