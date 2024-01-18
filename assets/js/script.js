@@ -92,7 +92,6 @@ function containsKey(arr, targetKey) {
 }
 
 deleteBtn.on('click',function(){
-    //////THIS SHOULD BE A MODAL/////////////////////////////////////////////////////////
     if (confirm('Are you sure you wanna delete your saved movies?') == true){
         localStorage.clear();
         savedMovieData = [];
