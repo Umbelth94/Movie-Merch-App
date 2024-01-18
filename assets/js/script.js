@@ -12,6 +12,7 @@ var moviePopularity = $("#popularity");
 var savedMoviesContainer = $("#saved-movies-container");
 var iframe = $("#iframe");
 var movieWarningMessage = $("#movie-warning");
+var deleteBtn = $("#delete-button");
 
 var modalBody = $("#modal");
 var span = $("#close");
@@ -41,10 +42,14 @@ searchButton.on("click", function () {
 
 //Function that displays locally stored movies as their own buttons that contain listeners to the handleMovieData function
 function displaySavedMovies() {
+    console.log('Displaying saved movies...');
+    console.log('Number of saved movies:', savedMovieData.length);
+
     savedMoviesContainer.empty();
 
     savedMovieData.forEach(function (movie) {
         var movieTitle = Object.keys(movie)[0];
+
         var button = $("<button>");
         button.addClass("button expanded secondary");
         button.text(movieTitle);
@@ -84,6 +89,21 @@ function containsKey(arr, targetKey) {
         }
     }
     return false; // Key not found
+}
+
+deleteBtn.on('click',function(){
+    if (confirm('Are you sure you wanna delete your saved movies?') == true){
+        localStorage.clear();
+        savedMovieData = [];
+        displaySavedMovies();
+    } else {
+        return;
+}
+})
+
+function deleteStorage(){
+    localStorage.clear();
+    displaySavedMovies();
 }
 
 const options = {
