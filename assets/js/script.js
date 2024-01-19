@@ -92,13 +92,10 @@ function containsKey(arr, targetKey) {
 }
 
 deleteBtn.on('click',function(){
-    if (confirm('Are you sure you wanna delete your saved movies?') == true){
+    
         localStorage.clear();
         savedMovieData = [];
         displaySavedMovies();
-    } else {
-        return;
-}
 })
 
 function deleteStorage(){
