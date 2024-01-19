@@ -17,6 +17,8 @@ var deleteBtn = $("#delete-button");
 var modalBody = $("#modal");
 var span = $("#close");
 var modalText = $("#modal-text");
+var modalSubText = $("#modal-subtext");
+var modalSubSubText = $("#modal-sub-subtext");
 
 //Creates a variable that immediately pulls any data saved under the 'savedMovies' key, OR creates an empty array if such a key does not exist.
 var savedMovieData = JSON.parse(localStorage.getItem("savedMovies")) || [];
@@ -33,10 +35,8 @@ searchButton.on("click", function () {
         handleMovieData(movieTitleInput);
         movieWarningMessage.text("");
     } else {
-        //////////////////////////////////MAKE A MODAL FOR THIS/////////////////////////
-        // alert("Must type in a movie");
         // function for modal to display message when no movie has been entered
-        movieNotEntered();
+        revealModal("Must type in a movie");
     }
 });
 
@@ -180,10 +180,8 @@ function handleMovieData(movieTitleInput) {
             console.log("data results length" + data.results.length);
             //Check to see if the request returned any movies
             if (data.results.length === 0) {
-                ///////////////////////MAKE A MODAL FOR THIS////////////////////////
-                // alert("That ain't a movie, bub");
                 // function for modal to display message when no movie matches search terms
-                notAMovie();
+                revealModal("That ain't a movie, bub");
                 return;
             } else {
                 displayMultipleMovies(data);
@@ -306,7 +304,7 @@ function handleYoutube(movieId) {
                 //     "Sorry, that movie does not exist in the API database"
                 // );
                 // function for modal to display message when no movie id exists
-                movieNotFound();
+                revealModal('"Sorry, that movie does not exist in the database"')
                 console.log("no movie id exists on kinoOptions");
                 return;
             }
@@ -320,7 +318,7 @@ function handleYoutube(movieId) {
                 //     "Oopsies, that trailer does not exist in the database"
                 // );
                 // function for modal to display message when no trailer is present
-                trailerNotFound();
+                revealModal('Oopsies, that trailer does not exist in the database');
                 iframe.addClass("hide");
                 return;
             }
@@ -350,44 +348,48 @@ displaySavedMovies();
 
 function revealModal(string){
     modalBody.removeClass("hide");
-    omdalText.text(string);
+    modalText.text(string);
 }
 
-function trailerNotFound() {
-    modalBody.removeClass("hide");
-    modalText.text("Oopsies, that trailer does not exist in the database");
-}
 
-function movieNotFound() {
-    modalBody.removeClass("hide");
-    modalText.text("Sorry, that movie does not exist in the database");
-}
+// function movieNotFound() {
+//     modalBody.removeClass("hide");
+//     modalText.text("Sorry, that movie does not exist in the database");
+// }
 
-function notAMovie() {
-    modalBody.removeClass("hide");
-    modalText.text("That ain't a movie, bub");
-}
+// function notAMovie() {
+//     modalBody.removeClass("hide");
+//     modalText.text("That ain't a movie, bub");
+// }
 
-function movieNotEntered() {
-    modalBody.removeClass("hide");
-    modalText.text("Must type in a movie");
-}
+// function movieNotEntered() {
+//     modalBody.removeClass("hide");
+//     modalText.text("Must type in a movie");
+// }
 
 span.onclick = function () {
     modalBody.addClass("hide");
+    modalSubText.addClass("hide");
+    modalSubSubText.addClass("hide");
     modalText.text("");
     return;
 };
-// span.click(function () {
+
+// $(window).click(function () {
+//     if (!modalBody.hasClass("hide")){
 //     modalBody.addClass("hide");
 //     modalText.text("");
-//     return;
+//     return;}
 // });
-$(window).click(function () {
+
+span.click(function () {
     modalBody.addClass("hide");
+    modalSubText.addClass("hide");
+    modalSubSubText.addClass("hide");
     modalText.text("");
     return;
 });
+
 
 // ================================================
 //                      Modal JS
