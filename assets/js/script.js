@@ -348,6 +348,11 @@ displaySavedMovies();
 //                      Modal JS
 // ================================================
 
+function revealModal(string){
+    modalBody.removeClass("hide");
+    omdalText.text(string);
+}
+
 function trailerNotFound() {
     modalBody.removeClass("hide");
     modalText.text("Oopsies, that trailer does not exist in the database");
@@ -373,11 +378,11 @@ span.onclick = function () {
     modalText.text("");
     return;
 };
-span.click(function () {
-    modalBody.addClass("hide");
-    modalText.text("");
-    return;
-});
+// span.click(function () {
+//     modalBody.addClass("hide");
+//     modalText.text("");
+//     return;
+// });
 $(window).click(function () {
     modalBody.addClass("hide");
     modalText.text("");
