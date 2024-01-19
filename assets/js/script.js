@@ -36,7 +36,7 @@ searchButton.on("click", function () {
         movieWarningMessage.text("");
     } else {
         // function for modal to display message when no movie has been entered
-        movieNotEntered();
+        revealModal("Must type in a movie");
     }
 });
 
@@ -181,7 +181,7 @@ function handleMovieData(movieTitleInput) {
             //Check to see if the request returned any movies
             if (data.results.length === 0) {
                 // function for modal to display message when no movie matches search terms
-                notAMovie();
+                revealModal("That ain't a movie, bub");
                 return;
             } else {
                 displayMultipleMovies(data);
@@ -304,7 +304,7 @@ function handleYoutube(movieId) {
                 //     "Sorry, that movie does not exist in the API database"
                 // );
                 // function for modal to display message when no movie id exists
-                movieNotFound();
+                revealModal('"Sorry, that movie does not exist in the database"')
                 console.log("no movie id exists on kinoOptions");
                 return;
             }
@@ -318,7 +318,7 @@ function handleYoutube(movieId) {
                 //     "Oopsies, that trailer does not exist in the database"
                 // );
                 // function for modal to display message when no trailer is present
-                trailerNotFound();
+                revealModal('Oopsies, that trailer does not exist in the database');
                 iframe.addClass("hide");
                 return;
             }
@@ -346,25 +346,26 @@ displaySavedMovies();
 //                      Modal JS
 // ================================================
 
-function trailerNotFound() {
+function revealModal(string){
     modalBody.removeClass("hide");
-    modalText.text("Oopsies, that trailer does not exist in the database");
+    modalText.text(string);
 }
 
-function movieNotFound() {
-    modalBody.removeClass("hide");
-    modalText.text("Sorry, that movie does not exist in the database");
-}
 
-function notAMovie() {
-    modalBody.removeClass("hide");
-    modalText.text("That ain't a movie, bub");
-}
+// function movieNotFound() {
+//     modalBody.removeClass("hide");
+//     modalText.text("Sorry, that movie does not exist in the database");
+// }
 
-function movieNotEntered() {
-    modalBody.removeClass("hide");
-    modalText.text("Must type in a movie");
-}
+// function notAMovie() {
+//     modalBody.removeClass("hide");
+//     modalText.text("That ain't a movie, bub");
+// }
+
+// function movieNotEntered() {
+//     modalBody.removeClass("hide");
+//     modalText.text("Must type in a movie");
+// }
 
 span.onclick = function () {
     modalBody.addClass("hide");
@@ -373,6 +374,14 @@ span.onclick = function () {
     modalText.text("");
     return;
 };
+
+// $(window).click(function () {
+//     if (!modalBody.hasClass("hide")){
+//     modalBody.addClass("hide");
+//     modalText.text("");
+//     return;}
+// });
+
 span.click(function () {
     modalBody.addClass("hide");
     modalSubText.addClass("hide");
@@ -380,13 +389,7 @@ span.click(function () {
     modalText.text("");
     return;
 });
-// $(window).click(function () {
-//     modalBody.addClass("hide");
-//     modalSubText.addClass("hide");
-//     modalSubSubText.addClass("hide");
-//     modalText.text("");
-//     return;
-// });
+
 
 // ================================================
 //                      Modal JS
