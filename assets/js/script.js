@@ -17,6 +17,8 @@ var deleteBtn = $("#delete-button");
 var modalBody = $("#modal");
 var span = $("#close");
 var modalText = $("#modal-text");
+var modalSubText = $("#modal-subtext");
+var modalSubSubText = $("#modal-sub-subtext");
 
 //Creates a variable that immediately pulls any data saved under the 'savedMovies' key, OR creates an empty array if such a key does not exist.
 var savedMovieData = JSON.parse(localStorage.getItem("savedMovies")) || [];
@@ -33,8 +35,6 @@ searchButton.on("click", function () {
         handleMovieData(movieTitleInput);
         movieWarningMessage.text("");
     } else {
-        //////////////////////////////////MAKE A MODAL FOR THIS/////////////////////////
-        // alert("Must type in a movie");
         // function for modal to display message when no movie has been entered
         movieNotEntered();
     }
@@ -180,8 +180,6 @@ function handleMovieData(movieTitleInput) {
             console.log("data results length" + data.results.length);
             //Check to see if the request returned any movies
             if (data.results.length === 0) {
-                ///////////////////////MAKE A MODAL FOR THIS////////////////////////
-                // alert("That ain't a movie, bub");
                 // function for modal to display message when no movie matches search terms
                 notAMovie();
                 return;
@@ -370,19 +368,25 @@ function movieNotEntered() {
 
 span.onclick = function () {
     modalBody.addClass("hide");
+    modalSubText.addClass("hide");
+    modalSubSubText.addClass("hide");
     modalText.text("");
     return;
 };
 span.click(function () {
     modalBody.addClass("hide");
+    modalSubText.addClass("hide");
+    modalSubSubText.addClass("hide");
     modalText.text("");
     return;
 });
-$(window).click(function () {
-    modalBody.addClass("hide");
-    modalText.text("");
-    return;
-});
+// $(window).click(function () {
+//     modalBody.addClass("hide");
+//     modalSubText.addClass("hide");
+//     modalSubSubText.addClass("hide");
+//     modalText.text("");
+//     return;
+// });
 
 // ================================================
 //                      Modal JS
